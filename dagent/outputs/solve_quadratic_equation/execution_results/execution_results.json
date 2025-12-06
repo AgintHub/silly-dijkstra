@@ -1,0 +1,44 @@
+{
+  "calculate_complex_roots": {
+    "output": {
+      "output": "The discriminant is negative, so we will calculate the complex roots using the quadratic formula: (-10 \u00b1 i*sqrt(-100)) / (2*1)"
+    },
+    "description": "Calculate the complex roots using the quadratic formula when the discriminant is negative"
+  },
+  "calculate_discriminant": {
+    "output": {
+      "output": "100 - 4*1*25 = 100 - 100 = 0"
+    },
+    "description": "Calculate the discriminant (b^2 - 4ac) of the quadratic equation"
+  },
+  "calculate_real_roots": {
+    "output": {
+      "output": "{\"a\": 1, \"b\": 10, \"c\": 25, \"discriminant\": 0}"
+    },
+    "description": "Calculate the roots using the quadratic formula when the discriminant is non-negative"
+  },
+  "determine_root_type": {
+    "output": {
+      "output": "The roots are real and distinct since the discriminant is positive."
+    },
+    "description": "Determine if the roots are real or complex based on the discriminant"
+  },
+  "format_roots": {
+    "output": {
+      "output": "The roots are real: 0 and -25, or they are complex: (-10 \u00b1 i*sqrt(-100)) / (2*1)"
+    },
+    "description": "Format the calculated roots for presentation"
+  },
+  "get_coefficients": {
+    "output": {
+      "output": "a=1, b=10, c=25"
+    },
+    "description": "Obtain the coefficients a, b, and c of the quadratic equation"
+  },
+  "present_solution": {
+    "output": {
+      "output": "The roots are real and distinct since the discriminant is positive. The roots are real: 0 and -25."
+    },
+    "description": "Present the final solution, including the type of roots and their values"
+  }
+}
