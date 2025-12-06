@@ -1,48 +1,56 @@
 dag_type: plain_text
-description: A workflow to achieve the objective 'test'
+description: A workflow to test the functionality of a given task or objective.
 name: test_workflow
 nodes:
   analyze_test_results:
     agent: false
-    description: Analyze the results of the test execution
+    description: Analyze the outcomes of the executed test cases.
     name: analyze_test_results
     nodes_depended_on:
-    - execute_test
+    - execute_test_cases
     nodes_dependent_on: []
-    prompt: Review the results of the test execution. Identify any issues, successes,
+    prompt: Evaluate the results of the test cases, identifying any successes, failures,
       or areas for improvement.
-  design_test_plan:
+  compile_test_report:
     agent: false
-    description: Create a plan for executing the test
-    name: design_test_plan
-    nodes_depended_on:
-    - interpret_test_objective
-    nodes_dependent_on: []
-    prompt: Based on the interpretation of the test objective, design a detailed plan
-      for executing the test. Include steps and expected outcomes.
-  document_test_outcome:
-    agent: false
-    description: Document the outcome of the test
-    name: document_test_outcome
+    description: Compile the findings into a comprehensive test report.
+    name: compile_test_report
     nodes_depended_on:
     - analyze_test_results
     nodes_dependent_on: []
-    prompt: Summarize the findings from the test analysis. Document the outcome, including
-      any insights or recommendations.
-  execute_test:
+    prompt: Summarize the test results, including observations, conclusions, and recommendations.
+  decompose_task:
     agent: false
-    description: Perform the test as per the designed plan
-    name: execute_test
+    description: Break down the task or objective into smaller, manageable components.
+    name: decompose_task
     nodes_depended_on:
-    - design_test_plan
+    - interpret_objective
     nodes_dependent_on: []
-    prompt: Execute the test according to the plan. Follow the steps outlined and
-      record the results.
-  interpret_test_objective:
+    prompt: Decompose the task into fundamental steps or operations that can be executed
+      independently.
+  design_test_cases:
     agent: false
-    description: Understand the test objective and identify the required outcome
-    name: interpret_test_objective
+    description: Create test cases or scenarios to validate the task or objective.
+    name: design_test_cases
+    nodes_depended_on:
+    - decompose_task
+    nodes_dependent_on: []
+    prompt: Develop specific test cases or scenarios that cover various aspects of
+      the task or objective.
+  execute_test_cases:
+    agent: false
+    description: Run the designed test cases to test the task or objective.
+    name: execute_test_cases
+    nodes_depended_on:
+    - design_test_cases
+    nodes_dependent_on: []
+    prompt: Execute the test cases, ensuring each step or operation is performed as
+      intended.
+  interpret_objective:
+    agent: false
+    description: Understand and clarify the given task or objective.
+    name: interpret_objective
     nodes_depended_on: []
     nodes_dependent_on: []
-    prompt: Analyze the given objective 'test' and determine what needs to be accomplished.
-      Provide a clear interpretation.
+    prompt: Clarify the task or objective to be tested. Identify key elements and
+      requirements.
