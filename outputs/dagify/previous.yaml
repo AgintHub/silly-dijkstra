@@ -1,56 +1,45 @@
 dag_type: plain_text
-description: A workflow to test the functionality of a given task or objective.
-name: test_workflow
+description: A workflow to identify and list the first 5 prime numbers
+name: list_first_5_primes
 nodes:
-  analyze_test_results:
+  check_if_number_is_prime:
     agent: false
-    description: Analyze the outcomes of the executed test cases.
-    name: analyze_test_results
+    description: Check if a given number is prime
+    name: check_if_number_is_prime
     nodes_depended_on:
-    - execute_test_cases
+    - define_prime_number
+    - initialize_number_list
     nodes_dependent_on: []
-    prompt: Evaluate the results of the test cases, identifying any successes, failures,
-      or areas for improvement.
-  compile_test_report:
+    prompt: Check if the current number is prime by verifying it has no divisors other
+      than 1 and itself.
+  collect_prime_numbers:
     agent: false
-    description: Compile the findings into a comprehensive test report.
-    name: compile_test_report
+    description: Collect the first 5 prime numbers found
+    name: collect_prime_numbers
     nodes_depended_on:
-    - analyze_test_results
+    - check_if_number_is_prime
     nodes_dependent_on: []
-    prompt: Summarize the test results, including observations, conclusions, and recommendations.
-  decompose_task:
+    prompt: Keep track of prime numbers found and stop once 5 primes are identified.
+  define_prime_number:
     agent: false
-    description: Break down the task or objective into smaller, manageable components.
-    name: decompose_task
-    nodes_depended_on:
-    - interpret_objective
-    nodes_dependent_on: []
-    prompt: Decompose the task into fundamental steps or operations that can be executed
-      independently.
-  design_test_cases:
-    agent: false
-    description: Create test cases or scenarios to validate the task or objective.
-    name: design_test_cases
-    nodes_depended_on:
-    - decompose_task
-    nodes_dependent_on: []
-    prompt: Develop specific test cases or scenarios that cover various aspects of
-      the task or objective.
-  execute_test_cases:
-    agent: false
-    description: Run the designed test cases to test the task or objective.
-    name: execute_test_cases
-    nodes_depended_on:
-    - design_test_cases
-    nodes_dependent_on: []
-    prompt: Execute the test cases, ensuring each step or operation is performed as
-      intended.
-  interpret_objective:
-    agent: false
-    description: Understand and clarify the given task or objective.
-    name: interpret_objective
+    description: Define what a prime number is
+    name: define_prime_number
     nodes_depended_on: []
     nodes_dependent_on: []
-    prompt: Clarify the task or objective to be tested. Identify key elements and
-      requirements.
+    prompt: Define a prime number. A prime number is a natural number greater than
+      1 that has no positive divisors other than 1 and itself.
+  initialize_number_list:
+    agent: false
+    description: Start checking numbers from 2 onwards
+    name: initialize_number_list
+    nodes_depended_on: []
+    nodes_dependent_on: []
+    prompt: Start checking numbers from 2 onwards to find prime numbers.
+  list_first_5_primes:
+    agent: false
+    description: List the first 5 prime numbers
+    name: list_first_5_primes
+    nodes_depended_on:
+    - collect_prime_numbers
+    nodes_dependent_on: []
+    prompt: List the first 5 prime numbers that were found.
