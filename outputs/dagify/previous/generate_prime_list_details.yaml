@@ -1,84 +1,119 @@
 dag_type: plain_text
-description: A workflow to create a list of prime numbers starting from the first
-  prime number
+description: A workflow to generate a list of the i'th prime number for i from 2 to
+  10
 name: generate_prime_list
 nodes:
-  append_prime_to_list:
+  compile_prime_list:
     agent: false
-    description: Append a prime number to the list of primes
-    name: append_prime_to_list
+    description: Compile the list of i'th prime numbers for i from 2 to 10
+    name: compile_prime_list
     nodes_depended_on:
-    - generate_nth_prime
-    nodes_dependent_on:
-    - check_if_list_has_desired_length
-    prompt: Append the input prime number to the list of primes. Return the updated
-      list.
-  check_if_list_has_desired_length:
+    - get_2nd_prime
+    - get_3rd_prime
+    - get_4th_prime
+    - get_5th_prime
+    - get_6th_prime
+    - get_7th_prime
+    - get_8th_prime
+    - get_9th_prime
+    - get_10th_prime
+    nodes_dependent_on: []
+    prompt: Create a list containing the i'th prime number for i from 2 to 10 using
+      the results from the get_i'th_prime steps.
+  get_10th_prime:
     agent: false
-    description: Check if the list of primes has reached the desired length
-    name: check_if_list_has_desired_length
+    description: Get the 10th prime number
+    name: get_10th_prime
     nodes_depended_on:
-    - append_prime_to_list
+    - get_nth_prime
     nodes_dependent_on:
-    - return_final_list
-    prompt: Check if the length of the input list is equal to the desired length.
-      If yes, return 'true', otherwise return 'false'.
-  check_if_number_is_prime:
+    - compile_prime_list
+    prompt: Use the get_nth_prime step to find the 10th prime number.
+  get_2nd_prime:
     agent: false
-    description: Check if a given number is prime
-    name: check_if_number_is_prime
+    description: Get the 2nd prime number
+    name: get_2nd_prime
+    nodes_depended_on:
+    - get_nth_prime
+    nodes_dependent_on:
+    - compile_prime_list
+    prompt: Use the get_nth_prime step to find the 2nd prime number.
+  get_3rd_prime:
+    agent: false
+    description: Get the 3rd prime number
+    name: get_3rd_prime
+    nodes_depended_on:
+    - get_nth_prime
+    nodes_dependent_on:
+    - compile_prime_list
+    prompt: Use the get_nth_prime step to find the 3rd prime number.
+  get_4th_prime:
+    agent: false
+    description: Get the 4th prime number
+    name: get_4th_prime
+    nodes_depended_on:
+    - get_nth_prime
+    nodes_dependent_on:
+    - compile_prime_list
+    prompt: Use the get_nth_prime step to find the 4th prime number.
+  get_5th_prime:
+    agent: false
+    description: Get the 5th prime number
+    name: get_5th_prime
+    nodes_depended_on:
+    - get_nth_prime
+    nodes_dependent_on:
+    - compile_prime_list
+    prompt: Use the get_nth_prime step to find the 5th prime number.
+  get_6th_prime:
+    agent: false
+    description: Get the 6th prime number
+    name: get_6th_prime
+    nodes_depended_on:
+    - get_nth_prime
+    nodes_dependent_on:
+    - compile_prime_list
+    prompt: Use the get_nth_prime step to find the 6th prime number.
+  get_7th_prime:
+    agent: false
+    description: Get the 7th prime number
+    name: get_7th_prime
+    nodes_depended_on:
+    - get_nth_prime
+    nodes_dependent_on:
+    - compile_prime_list
+    prompt: Use the get_nth_prime step to find the 7th prime number.
+  get_8th_prime:
+    agent: false
+    description: Get the 8th prime number
+    name: get_8th_prime
+    nodes_depended_on:
+    - get_nth_prime
+    nodes_dependent_on:
+    - compile_prime_list
+    prompt: Use the get_nth_prime step to find the 8th prime number.
+  get_9th_prime:
+    agent: false
+    description: Get the 9th prime number
+    name: get_9th_prime
+    nodes_depended_on:
+    - get_nth_prime
+    nodes_dependent_on:
+    - compile_prime_list
+    prompt: Use the get_nth_prime step to find the 9th prime number.
+  get_nth_prime:
+    agent: false
+    description: Get the n'th prime number
+    name: get_nth_prime
+    nodes_depended_on:
+    - is_prime
+    nodes_dependent_on: []
+    prompt: Find the n'th prime number by checking numbers sequentially using the
+      is_prime check.
+  is_prime:
+    agent: false
+    description: Check if a number is prime
+    name: is_prime
     nodes_depended_on: []
     nodes_dependent_on: []
-    prompt: Determine if the input number is prime. Return 'true' if prime, 'false'
-      otherwise.
-  generate_next_prime:
-    agent: false
-    description: Generate the next prime number after a given number
-    name: generate_next_prime
-    nodes_depended_on:
-    - check_if_number_is_prime
-    nodes_dependent_on: []
-    prompt: Starting from the input number, incrementally check subsequent numbers
-      until a prime number is found. Return the prime number.
-  generate_nth_prime:
-    agent: false
-    description: Generate the nth prime number
-    name: generate_nth_prime
-    nodes_depended_on:
-    - generate_next_prime
-    nodes_dependent_on:
-    - append_prime_to_list
-    prompt: Starting from the first prime, iteratively generate the next prime until
-      the nth prime is reached. Return the nth prime number.
-  initialize_first_prime:
-    agent: false
-    description: Initialize the first prime number
-    name: initialize_first_prime
-    nodes_depended_on: []
-    nodes_dependent_on:
-    - generate_next_prime
-    prompt: Return the first prime number, which is 2.
-  initialize_prime_list:
-    agent: false
-    description: Initialize an empty list to store prime numbers
-    name: initialize_prime_list
-    nodes_depended_on: []
-    nodes_dependent_on:
-    - append_prime_to_list
-    prompt: Create an empty list to store prime numbers.
-  return_final_list:
-    agent: false
-    description: Return the final list of primes
-    name: return_final_list
-    nodes_depended_on:
-    - check_if_list_has_desired_length
-    nodes_dependent_on: []
-    prompt: Return the input list as the final list of primes.
-  set_desired_list_length:
-    agent: false
-    description: Set the desired length of the prime number list
-    name: set_desired_list_length
-    nodes_depended_on: []
-    nodes_dependent_on:
-    - check_if_list_has_desired_length
-    prompt: Return the desired length of the prime number list.
+    prompt: Determine if the input number is prime. Return true if prime, false otherwise.
