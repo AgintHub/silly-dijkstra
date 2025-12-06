@@ -1,0 +1,48 @@
+dag_type: plain_text
+description: A workflow to achieve the objective 'test'
+name: test_workflow
+nodes:
+  analyze_test_results:
+    agent: false
+    description: Analyze the results of the test execution
+    name: analyze_test_results
+    nodes_depended_on:
+    - execute_test
+    nodes_dependent_on: []
+    prompt: Review the results of the test execution. Identify any issues, successes,
+      or areas for improvement.
+  design_test_plan:
+    agent: false
+    description: Create a plan for executing the test
+    name: design_test_plan
+    nodes_depended_on:
+    - interpret_test_objective
+    nodes_dependent_on: []
+    prompt: Based on the interpretation of the test objective, design a detailed plan
+      for executing the test. Include steps and expected outcomes.
+  document_test_outcome:
+    agent: false
+    description: Document the outcome of the test
+    name: document_test_outcome
+    nodes_depended_on:
+    - analyze_test_results
+    nodes_dependent_on: []
+    prompt: Summarize the findings from the test analysis. Document the outcome, including
+      any insights or recommendations.
+  execute_test:
+    agent: false
+    description: Perform the test as per the designed plan
+    name: execute_test
+    nodes_depended_on:
+    - design_test_plan
+    nodes_dependent_on: []
+    prompt: Execute the test according to the plan. Follow the steps outlined and
+      record the results.
+  interpret_test_objective:
+    agent: false
+    description: Understand the test objective and identify the required outcome
+    name: interpret_test_objective
+    nodes_depended_on: []
+    nodes_dependent_on: []
+    prompt: Analyze the given objective 'test' and determine what needs to be accomplished.
+      Provide a clear interpretation.
